@@ -7,6 +7,10 @@ app = Flask(__name__)
 def home():
     return 'Website content to be put here'
 
+@app.route('/about/')
+def about():
+    return 'Website \'About\' content to be put here'
+
 
 if __name__ == '__main__':
     app.run(debug = True)
