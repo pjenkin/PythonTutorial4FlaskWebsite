@@ -7,6 +7,7 @@ app = Flask(__name__)
 def home():
     #return 'Website content to be put here'
     return render_template('home.html')
+    # return render_template('layout.html')
 
 @app.route('/about/')
 def about():
