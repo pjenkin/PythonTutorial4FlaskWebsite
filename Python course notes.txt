@@ -416,17 +416,24 @@ TODO: NB omnipresent class="container"  for bootstrap &c https://stackoverflow.c
 <header> (NB not <head>) mostly semantic for SEO
 NB Chrome - Network tab - right-click on css file - 'Clear browser cache' - else changes in CSS may not be shown in browser
 10-148 pip3 install virtualenv (actually, installed with Pycharm)  - python -m venv virtualfolder   - install packages into virtualenv (cf activate) - 
-10-150 (1) heroku login - (2) heroku create (can give name - optional) - add x3 files: 
+10-150 (1) heroku login - (2) heroku create (can give name - optional) - (3) add x3 files (a-c): 
 	(a) requirements.txt - dependencies to install in heroku for python e.g. Flask - - (i) NB pip3 freeze from within virtualenv to see packages used in app (use PyCharm activate terminal window) (ii) pip3 install gunicorn (Python HTTP server) to virtualenv (iii) pip3 freeze > requirements.txt - NB move requirements.txt to project root  
 	(b) Procfile (no extension)  
 web: gunicorn script1:app
 i.e.  web: gunicorn filename:variable name of Flask instance
-python-3.7.2
 	(c) runtime.txt  
+python-3.7.2
+
+(4) heroku git:remote --app stormy-tundra-92042
+(5) git push heroku  - NB must commit all necessary files (eg Procfile, runtime.txt, requirements.txt et al) before push
+(6) heroku open to see page (or use URL stated on CLI)
+NB git config --global user.email and user.name may have to be set up if not already set up
+NB check on Python console web page for build error log, also 'heroku logs' to see info at command line
+
 
 i.e. python version  https://devcenter.heroku.com/articles/python-support#specifying-a-python-version   
 (3) git push heroku   NB will push master branch
-
+10-151 update website by modifying, commiting and pushing changes to heroku
 
 TODO: IDLE IDE
 TODO: multiple projects in 1 repo? https://www.quora.com/How-would-you-manage-multiple-projects-under-one-Git-repo   https://stackoverflow.com/questions/14679614/whats-the-best-practice-for-putting-multiple-projects-in-a-git-repository
