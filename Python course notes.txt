@@ -913,6 +913,9 @@ and early on in template after {% extends .....   - (checking variable names to 
 
 see 4FlaskWebsite repo for 20-228 et seq
 
+20-229 Heroku prep (cf 10-150) pip3 install gunicorn - in Flask root folder, (1) pip3 freeze > requirements.txt (2) Procfile (no extension) (if not already)  
+web: gunicorn script1:app
+(3) runtime.txt (with python interpreter number)
 
 
 -----------------------------------------------
