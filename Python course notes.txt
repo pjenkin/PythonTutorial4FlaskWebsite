@@ -4,7 +4,7 @@ NB remember to activate virtualenv with activate script and pip3 install from Sc
 1-6 pycharm (Jetbrains)  Ctrl-Q - cursor docs; Alt-F7 find instances; Ctrl-space complete; Ctrl-F12 navigate structure; shift-F6 rename; Tab accept/overwrite; Ctrl-W increasing select; Alt-F1 select currently edited; Ctrl-D duplicate; Ctrl-Shift-Up/Down move line up/down; Ctrl-P valid parameter list at cursor; Ctrl-Shift-Backspace move to last edit(s); Ctrl-Shift-F7 highlight instances in file - F3/Shift-F3 move through; Ctrl-Shift-V choose clipboard copy/paste; Alt-Up/Down move between methods;  Ctrl-Alt-L reformat according to PEP8 standard; Ctrl-O override base methods; 
 Run... configuration - or use default 'main'
 pastebin.com 
-https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
+GITIGNORE FOR PYCHARM/PYTHON : https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
 
 *no* implicit conversion (string->number)
 is - boolean - initial 'T' True
@@ -73,6 +73,28 @@ The class's docstring
 
 3-33 classes, __init__.py (__init__.py to identify directory as containing package, inter alia)  -  from classes.myclass  (relative, local import)
 pprint - pretty print object
+
+
+
+========================================================================
+
+Other Python course https://www.udemy.com/python-complete/learn/v4/t/lecture/5754234?start=0
+(Observation only)
+6-91 pip3 install django  - django admin - startproject mynewsite - in new directory, (a) same-named directory:__init__.py (settings); settings.py (config for APPS, TEMPLATES, MIDDLEWARE); urls.py (urlpatterns: routes to views); wsgi.py (WSGI settings)  (b) manage.py - e.g. python3 ./manage.py runwebserver 12345 (run on port 12345)
+6-92 django-admin startapp myapp - create application in project, called myapp - in subdirectory with app name (e.g. myapp) will have created: myapp directory; migrations directory; __init__.py; admin.py (import and admin.site.register models); apps.py; models.py (models declared here, also imports e.g. from django.core.urlresolvers import reverse) ; tests.py; views.py;
+NB in site settings.py, add INSTALLED_APPS entry e.g. 'myapp'
+model e.g.: from django import models; class Post(models.Model):
+	title = models.CharField(max_length=255); slug = models.SlugField(max_length=255, unique=True); summary = models.CharField(max_length=300); content = models.TextField(); published = models.BooleanField(default=True); created = models.DateTimeField(auto_now_add=True); class Meta: ordering = ['-created']
+def __unicode__(self): return u'%s'% sel.title; def get_absolute_url(self): return reverse(blog.views.post,args=[self.slug]) - models appearing as view from superuser?
+and so on and on in shockingly unhelpful styles
+6-93  - python3 ./manage.py makemigrations - python3 ./manage.py migrate - https://realpython.com/django-migrations-a-primer/ - migrations from/for models
+python3 ./manage.py createsuperuser - 
+6-94 urls.py in site: import declare routes in urlpatterns e.g. url(r'^post/$', blog_views.post); views.py in app: function for each route e.g. def index(request): return HttpResponse('Hello)
+NB '^' for regex
+6-96 in html, e.g. {% for post in posts} <div><h3>{{ post.title}} </h3></div> {% endfor %}
+6-98 {% load bootstrap %} {% %} %{ %}
+
+=======================================
 
 
 https://pypi.org/project/colorama/     https://stackoverflow.com/a/23435273
@@ -155,7 +177,7 @@ a=[1,2,3,4];    print('_'.join(map(str,a)))   >>> 1_2_3_4		# int in list mapped 
 
 
 
-TODO decorators - http://book.pythontips.com/en/latest/decorators.html   https://en.wikipedia.org/wiki/Decorator_pattern
+TODO decorators - http://book.pythontips.com/en/latest/decorators.html   https://en.wikipedia.org/wiki/Decorator_pattern  https://www.udemy.com/the-python-mega-course/learn/v4/questions/6470378   https://realpython.com/inner-functions-what-are-they-good-for/   ~C# attributes?  https://stackoverflow.com/a/40389872
 TODO variadic arguments
 TODO positional argument, keyword argument
 5-89 *my_list    **my_dictionary   TODO https://codeyarns.com/2012/04/26/unpack-operator-in-python/    https://treyhunner.com/2018/10/asterisks-in-python-what-they-are-and-how-to-use-them/   splat? unpack?
@@ -438,14 +460,469 @@ i.e. python version  https://devcenter.heroku.com/articles/python-support#specif
 TODO: IDLE IDE
 TODO: multiple projects in 1 repo? https://www.quora.com/How-would-you-manage-multiple-projects-under-one-Git-repo   https://stackoverflow.com/questions/14679614/whats-the-best-practice-for-putting-multiple-projects-in-a-git-repository
 
+11-153 Tkinter - tk interface - tool kit - basic GUI framework (PyQT, wxPython more advanced)
+11-154 from tkinter import *;	# import & use many different features from tool kit
+from tkinter import *
+11-155     t1.insert(END, miles)
 
-=======================================
+window = Tk()   # empty window
+b1 = Button(window,text="Execute") # b1.pack()  # simple, button in centre
+b1.grid(row=0, column=0, rowspan=2)   # detailed layout, button at top-left and wide (2 columns)
+e1 = Entry(window)      # text input
+e1.grid(row=0, column=1); t1 = Text(window, height=1, width = 20); t1.grid(row=0, column=2)
+window.mainloop()
+
+
+11-155 def km_to_miles():
+    # print('Hello')
+    print(e1_value.get())
+    miles = float(e1_value.get()) * 0.62137
+    t1.insert(END, miles)
+
+
+b1 = Button(window,text="Execute", command=km_to_miles)         # NB no parentheses; # b1.pack()  # simple, button in centre; b1.grid(row=0, column=0, rowspan=2)   # detailed layout, button at top-left and wide (2 columns)
+e1_value=StringVar(); e1 = Entry(window, textvariable=e1_value)      # text input; e1.grid(row=0, column=1)
+t1 = Text(window, height=1, width = 20);t1.grid(row=0, column=2)
+
+
+11-156 Label(text="Some Property Name")
+
+TODO: PyQt, wxPython    http://zetcode.com/gui/pyqt4/
+12-158 sqlite3 for SQLite; psycopg2 for PostGreSQL
+12-159 sqlite3 built in - import sqlite3
+e.g.
+def create_table():
+    connection = sqlite3.connect('lite.db')     # connection with new or existing SQLite db
+    cursor = connection.cursor();     cursor.execute('CREATE TABLE IF NOT EXISTS store(item TEXT, quantity INTEGER, price REAL)')       # REAL/float
+    connection.commit(); connection.close()
+
+
+def insert(item, quantity, price):
+    connection = sqlite3.connect('lite.db')     # connection with new or existing SQLite db
+    cursor = connection.cursor();  # cursor.execute('INSERT INTO store VALUES (\'Kitkat\', 50, 0.80)'); sql_string = f'INSERT INTO store VALUES (\'{item}\', {quantity},{price})'
+    # print(sql_string); cursor.execute(sql_string)    # NB f prefix
+ connection.commit();  connection.close()
+
+def view():
+    connection = sqlite3.connect('lite.db')     # connection with new or existing SQLite db
+    cursor = connection.cursor();  sql_string = f'SELECT * FROM store'; # print(sql_string); cursor.execute(sql_string)    # NB f prefix
+    rows = cursor.fetchall(); connection.close(); return rows                 # return fetched data
+print(view())
+# insert('Marathon',100, 0.75)
+12-160  update and delete fairly straightforward e.g.     sql_string = f'DELETE FROM store WHERE item=\'{item}\'' # NB f prefix
+
+NB string interpolation could also be e.g.     sql_string = 'DELETE FROM store WHERE item=?', (item,) # tuple contents to correspond with question marks
+NB *args, **kwargs https://www.digitalocean.com/community/tutorials/how-to-use-args-and-kwargs-in-python-3#understanding-**kwargs  *args is used to send a non-keyworded variable length argument list to the function  **kwargs allows you to pass keyworded variable length of arguments to a function. You should use **kwargs if you want to handle named arguments in a function.   https://www.udemy.com/the-python-mega-course/learn/v4/questions/4934682
+NB returning from inner function in decorator https://realpython.com/inner-functions-what-are-they-good-for/
+e.g. def update_kwargs(**some_kwargs):       # kwargs not mandatory, the ** is important though
+    sql_string = f'UPDATE store SET quantity={some_kwargs["quantity"]}, price={some_kwargs["price"]} WHERE item=\'{some_kwargs["item"]}\'' # NB f prefix
+or    sql_string = f'UPDATE store SET quantity={some_kwargs.get("quantity", 1)}, price={some_kwargs.get("price",1)} WHERE item=\'{some_kwargs["item"]}\'' # NB f prefix
+
+12-161 PostGreSQL (Post-Ingres (db)) - install PostGreSQL on system and pip3 install psycopg2 - import psycopg2 - 
+NB PostGIS path C:\PostgreSQL\pg10
+NB precompiled python library using wheel files - downloadable.whl file with pip3 install ./pathtowheelfile.whl
+12-162 default database called 'postgres' in PostGreSQL - or create via pgAdmin - 
+NB have to start PostGreSQL server!   https://dba.stackexchange.com/q/580
+in pgAdmin Schemas/Public/Tables to see new table
+12-163 mysql.connector - pip3 install mysql-connector -  con = mysql.connector.connect(user="PJ",  password = "PJ", host="108.167.140.122", database = "some_mysql_database")
+NB connection strings vary per database type
+NB pj='pj'; pj*2 >>> 'pjpj'
+
+13-164 desktop app - executable file from python
+wrap-guide package can show 80-character column (PEP8)
+
 NB remember to activate virtualenv with activate script and pip3 install from Scripts directory in terminal window from PyCharm
+13-166 scrollbars and listboxes in Tkinter e.g.
+books_list = Listbox(window, height=6, width=35); books_list.grid(row=2, column=0, rowspan=6, columnspan=2)       # NB rowspan, columnspan
+book_list_scroll = Scrollbar(window); book_list_scroll.grid(row=1, column=2); books_list.configure(yscrollcommand=book_list_scroll.set); book_list_scroll(command=books_list.yview)
+
+13-167 1-by-1 write & check CRUD functions
+use DB Browser for SQLite to inspect .db file in root directory
+TODO: generators (pattern viz decorators) & yield
+13-168 use command=search_function and def search_function with backend.search (having import'd backend) to link frontend & backend e.g.
+def search_command():
+    books_list.delete(0, END)            # clear list box
+    for row in backend.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
+        books_list.insert(END, row)
+search_entry_button = Button(window, text="Search entry", width=12, command=search_command)
+
+13-168 .bind method on listbox to get select status  - http://effbot.org/tkinterbook/listbox.htm - <<ListboxSelect>> d'return tuple of e.g. (2,) returned so get [0]
+e.g. books_list.bind('<<ListboxSelect>>',get_selected_row)
+def get_selected_row(event):     # NB event parameter, for booklist
+    global selected_row_tuple       # make available outside function - no need to use this function if no event
+    index = books_list.curselection()[0]    # get 1st part of <<ListboxSelect>> tuple (i.e. the index)
+    selected_row_tuple = books_list.get(index)
+
+def delete_command():
+    backend.delete(selected_row_tuple[0])   # get first (only?) element of selected row's tuple
+
+for close, command=window.destroy
+13-170 exercise re try...except IndexError
+13-171 standalone executables - pip3 install pyinstaller (globally) - pyinstaller --onefile --windowed mymainscriptfile.py - mymainscriptfile.exe in ./dist folder
+.pyc files, .pyo, __pycache__ directory &c - by pyinstaller, precompiled module script for speedy build to save importation if not changed since last build ('progressive?' build)  - https://stackoverflow.com/q/8822335
+TODO: .app file Mac
+
+14-174 OOP: e.g. class Database:  def __init__(self):   like a constructor, called on instantiation - 'self' is a convention, not keyword
+all methods will require (self,...) self parameter in addition to following other parameters
+NB from tkinter import *    will occupy some memory but enables declaration of objects easily e.g. Label() whereas  import tkinter   would mean having to use dot notation   tkinter.Label()  - abbreviated    import tkinter as tk  will slightly ease   tk.Label     https://www.udemy.com/the-python-mega-course/learn/v4/questions/2919100
+14-175 using OOP database class with db.connect and cursor in __init__(self) constructor will, if that .connection and .cursor are referenced in method code, remove need for connection code in methods - but NB .close() ing of db will have to be left out of __init__ (to avoid 'db closed' errors) - db.close to go in destructor __del__
+__init__(self, file, db)
+TODO cf with_connection decorator
+__del__self:     - destructor for class  -  https://pythonprogramminglanguage.com/destructor/
+
+e.g. class Account:
+    def __init__(self, filepath):
+        with open(filepath, 'r') as file:
+            self.balance = int(file.read())      # instance variable / property
+        self.filepath = filepath
+14-176 package: DIRECTORY; module: FILE; class: code  - as seen when importing from command line - 
+14-177 inheritance base class & subclass - 
+e.g. class CheckingAccount(Account):
+    def __init__(self, filepath, fee):     # self passed even if sub-class
+        Account.__init__(self, filepath)  # invoking base account
+	self.fee = fee			# NB instance variable from constructor into sub-class
+14-178 class variable declared in body of class
+e.g. type='checking-account'
+docstring under class name - with print(myinstancename.__doc__) docstring will print - useful when importing without code 
+e.g. class CheckingAccount(Account):
+	''' This class d'generate checking account objects '''  or """ This class d'generate checking account objects """
+TODO polymorphism; multiple inheritance   https://stackoverflow.com/questions/3724110/practical-example-of-polymorphism/3724160#3724160  https://www.python-course.eu/python3_multiple_inheritance.php  https://www.programiz.com/python-programming/multiple-inheritance    https://stackoverflow.com/q/3277367
+TODO super function super().__init__
+14-179 front end as class - I made database link functions as methods of a class - video solution also included 'markup' of tktinter methods in __init__
+
+15-181 Computer vision - OpenCV - cv2
+15-182 pip3 install opencv-python (in venv and globally) 
+15-183
+img = cv2.imread('galaxy.jpg', 0)      # -1 for colour   https://docs.opencv.org/3.1.0/dc/d2e/tutorial_py_image_display.html
+NB tuple unpacking    is same as height,width = img.shape
+img = cv2.imread('galaxy.jpg', -1)      # -1 for colour
+cv2.IMREAD_COLOR: 1
+cv2.IMREAD_GRAYSCALE: 0
+cv2.IMREAD_UNCHANGED: -1
+A 3-colour image will have 3 matrices
+
+NB pip3 install screeninfo  - for monitor in screeninfo.get_monitors():    width = monitor.width  - ... and scale thence:  min_ratio = min((screen_height / img_height), (screen_width / img_width)) - resized_image = cv2.resize(img, (int((img_width * min_ratio)), int((img_height * min_ratio))))
+15-184 exercise to iterate through directory and cv2.resize to 100x100 - glob2.glob used to iterate through directory - os.path.splitext(os.path.basename(file))[0] used for renamed new filename
+15-187 Haar cascade recorded in XML file (patterns of shadows &c) - e.g. face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")     # classifier object - faces = face_cascade.detectMultiScale(grey_img, scaleFactor=1.05, minNeighbours=5, )
+scale factor=1.05 : increase search size by 5% per iteration (smaller increase slower but more accuracy)
+minNeighbors=5 : reduce false positives (NB also true positives) - how many neighbours each rectange should have https://docs.opencv.org/2.4/modules/objdetect/doc/cascade_classification.html#cascadeclassifier-detectmultiscale
+
+NB detectmultiscale will return # 4 value array - bounding rectangle, from top-left
+NB https://opencv-python-tutroals.readthedocs.io/en/latest/index.html   https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_colorspaces/py_colorspaces.html https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html#cvtcolor
+
+15-188 Video capture from camera using OpenCV/cv2 - 
+NB time.sleep(3) to pause 3 seconds
+video = cv2.VideoCapture(0)     # 0 for first camera - outside a while loop
+    check, frame = video.read()     # check is boolean, frame is a numpy array
+    grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)      # dilemma - whether to call var 'grey' or 'gray' ...?
+    cv2.imshow('Capturing', grey)
+video.release()
+cv2.destroyAllWindows()
+
+
+pip3 uninstall something    pip3 install something==4.4.4   pip3 install something>4.0.0   -     print(cv2.__version__)
+?? https://github.com/opencv/opencv/issues/13255 ??
+NB np.set_printoptions(threshold=np.inf)       # print out all of numpy array  https://stackoverflow.com/q/1987694
+
+16-189 Motion detector - https://www.udemy.com/the-python-mega-course/learn/v4/questions/3696968
+16-190 Background -> (grey from colour) -> current frame -> (grey from colour) -> (difference background-current) -> convert difference to black & white using threshold -> find contours (islands) of white objects -> iterate through each of the contours, threshold by number of pixels (size) -> draw rectangle around allowed contours
+NB BGR not RGB https://stackoverflow.com/q/367449 - endian https://www.learnopencv.com/why-does-opencv-use-bgr-color-format/  "horse's ass"
+NB     _, threshold_delta = cv2.threshold(delta_frame, 100, 255, cv2.THRESH_BINARY)  same as     threshold_delta = cv2.threshold(delta_frame, 100, 255, cv2.THRESH_BINARY)[1]   # binary threshold - set to 255 if above (say, 30)
+   # binary threshold - set to 255 if above (say, 30)
+ - https://stackoverflow.com/a/55160218
+
+
+    delta_frame = cv2.absdiff(first_frame, grey)          # difference of current & first frames (blurred)
+
+    _, threshold_delta_frame = cv2.threshold(delta_frame, 100, 255, cv2.THRESH_BINARY)
+    # threshold greyscale to black & white
+    # binary threshold - set to 255 if above (say, 30)
+    # _, thresh = xyz to unpack tuple, or thresh = xyz[1]
+
+
+    threshold_delta_frame = cv2.dilate(threshold_delta_frame, None, iterations=2)     # no kernel passed in,
+    # dilate to consolidate contours
+
+	    (contours, _) = cv2.findContours(threshold_delta_frame.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (_, contours, _) = cv2.findContours(threshold_delta_frame.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # enumerate the contours in greyscaled thresholded frame
+    # retrieve external
+    # tuple returned -
+
+https://docs.opencv.org/3.4.2/d3/dc0/group__imgproc__shape.html#ga17ed9f5d79ae97bd4c7cf18403e1689a
+
+    for contour in contours:
+        if cv2.contourArea(contour) < 1000:
+            continue                    # continue back to the beginning of the loop - go no further in this loop
+        (x, y, width, height) = cv2.boundingRect(contour)      # else
+        cv2.rectangle(frame, (x, y), (x + width, y + height), (0, 255, 0) )
+        # from top left on original frame, draw 3-pixel BGR green rectangle
+
+NB continue - in loop meaning continue immediately back to next iteration/check in loop and do not process code below in loop branch
+16-191 NB extended slices https://stackoverflow.com/a/3453103   https://stackoverflow.com/a/50798932  - generator?? https://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/  cf list slicing
+e.g. 
+def timepair(timelist):
+    """generator for converting a list of start-finish times into a list of pairs"""
+    for start, finish in zip(timelist[::2], timelist[1::2]):
+        yield start, finish
+    # https://stackoverflow.com/a/50798932
+
+    motion_status_list.append(motion_status)
+    if motion_status_list[-1] == 1 and motion_status_list[-2] == 0:
+        motion_times_list.append(datetime.now())
+    if motion_status_list[-1] == 1 and motion_status_list[-2] == 1:
+        motion_times_list.append(datetime.now())
+
+    if key == ord('q'):
+        if motion_status == 1:
+            motion_times_list.append(datetime.now())
+        break
+
+start_finish_list = timepair(motion_times_list)             # generate list of pairs of start/finish times - PNJ
+
+for timestamp_pair in start_finish_list:                    # write pairs of start/finish times to csv
+    df = df.append({'Start': timestamp_pair[0], 'End': timestamp_pair[1]}, ignore_index=True)
+df.to_csv('Times.csv')
+
+
+17-192  matplotlib & seaborn: older maths/charting library
+17-193 pip3 install bokeh  (after activate, as ever - but also install globally if using Jupyter Notebook)
+17-194 NB problem Edge + Jupyter Notebook
+#import Bokeh
+from bokeh.plotting import figure
+from bokeh.io import output_file, show
+import pandas
+
+#prepare some data
+x = [1,2,3,4,5]
+y = [6,7,8,9,10]
+
+#prepare the output file
+output_file('BasicLine.html')
+
+#create figure object
+fig = figure()
+
+#create line plot, using x & y arrays
+fig.line(x,y)
+
+# write the plot to html file & show
+show(fig)
+
+17-197 from csv (with header row) read_csv to pandas dataframe; then from dataframe columns (e.g. x = df['x]) to Bokeh chart series
+17-198 practice
+17-200 NB if "ModuleNotFoundError: no module named 'xlrd'" (xlrd is for ) globally pip3 install xlrd - to do with loading Excel .xslx file
+17-201 Display properties for plots e.g.
+p=figure(plot_width=500,plot_height=400, tools='pan',logo=None) 
+p.title.text="Cool Data"
+p.title.text_color="Gray"
+p.title.text_font="times"
+p.title.text_font_style="bold"
+p.title.text_font_size="36pt"
+p.xaxis.minor_tick_line_color=None
+p.yaxis.minor_tick_line_color=None
+p.xaxis.axis_label="Date"
+p.yaxis.axis_label="Intensity" 
+17-202 practice  - dataframe = pandas.read_excel('verlegenhuken.xlsx')  - fig.scatter(temperature_x, pressure_y)
+
+17-205 https://www.alphavantage.co/support/#api-key    0U1XJSQJG1EXCE3V   API key for Alpha Vantage (in lieu of functional Google/Yahoo APIs)  https://www.alphavantage.co/documentation/    
+sizing_mode=scale_both - https://bokeh.pydata.org/en/latest/docs/reference/layouts.html   - x_axis_type="datetime" to handle dates cf 7-226
+17-206 figure.quad for quadrants (areas) using arrays/dataframe-series
+17-207 Bokeh quadrants and formatting - fig = figure(x_axis_type="datetime", height=100, width=500, sizing_mode="scale_both", title="Motion Graph")
+fig.yaxis.minor_tick_line_color = None
+fig.ygrid[0].ticker.desired_num_ticks = 1
+quadrant = fig.quad(left=df['Start'], right=df['Finish'], bottom=0, top=1, color="green")
+output_file("Graph.html")
+show(fig)
+17-208 (Bokeh) HoverTool with tooltips hover = HoverTool(tooltips=[('Start: ', '@Start'), ('Finish: ', '@Finish')]);   figure.add_tools(hover)
+(Bokeh) ColumnDataSource - column_data_source = ColumnDataSource(df); - in figure(.... , source = column_data_source - will enable , e.g. '@Start'
+df['Start_string'] = df['Start'].dt.strftime("%Y-%m-%d %H:%M:%S")
+df['Finish_string'] = df['Finish'].dt.strftime("%Y-%m-%d %H:%M:%S")
+hover = HoverTool(tooltips=[('Start: ', '@Start_string'), ('Finish: ', '@Finish_string')])
+fig.add_tools(hover) #  - RuntimeError: Expected left and right to reference fields in the supplied data source.
+quadrant = fig.quad(left='Start', right='Finish', bottom=0, top=1, color="green", source=column_data_source)
+ 
+18-209 web scraping using Beautiful Soup
+18-210 ditto
+18-211 pip3 install requests    -   pip install bs4  - import requests - from bs4 import BeautifulSoup
+request = requests.get("http://pythonhow.com/example.html"); content = request.content
+TODO: is this is the same requests library as was used in Node.js ??
+request d'fetch HTML; BeautifulSoup d' extract elements/tags
+request = requests.get("http://pythonhow.com/example.html"); content = request.contentsoup = BeautifulSoup(content,'html.parser'); all = soup.find_all('div',{'class':'cities'});
+for item in all:
+    print (item.find_all('h2')[0].text)
+NB possible to pass certain parameters only e.g. soup = BeautifulSoup(c, "html.parser", parse_only=True) even though 1 parameter missed out from BeautifulSoup(markup='', features=None, builder=None, parse_only=None, from_encoding=None, exclude_encodings=None, **kwargs)
+
+19-212  https://www.udemy.com/the-python-mega-course/learn/v4/questions/3752642   - https://stackoverflow.com/a/43441551/1585017
+19-213 http://pythonhow.com/real-estate/rock-springs-wy/LCWYROCKSPRINGS/
+19-214 
+NB CTRL-Shift-J   SHIFT-M merge Jupyter notebook
+19-215  use a find_all with a for loop to iterate through multiple result elements -  use find instead of find_all if only 1 element known to be involved - e.g. for item in all:
+    print(item.find('h4',{'class':'propPrice'}).text.replace("\n",''))  # replace('/n','').replace(' ','')
+use try...except where value uncertain e.g.
+    try:
+        print(item.find('span',{'class': 'infoSqFt'}).find('b').text)  # Square Feet inside <b> as well
+    except AttributeError:
+        print(None)     # try printing None (will print as string) if data not found
+
+https://www.udemy.com/the-python-mega-course/learn/v4/questions/4671792
+19-216 zip function for efficient for loop NB find_all() in BeautifulSoup, not findall() NB *_* !
+19-217 using dictionaries to store data prior to writing to a file
+19-218 use request to crawl/load successive pages by URL 
+http://pythonhow.com/real-estate/rock-springs-wy/LCWYROCKSPRINGS/t=0&s=0.html
+NB could crawl page then check for presence of 'Next' button to see whether to continue
+base_url = 'http://pythonhow.com/real-estate/rock-springs-wy/LCWYROCKSPRINGS/t=0&s='
+for page in range (0,30,10):		# go from 0 to 30 in intervals of 10
+    print(base_url + str(page) + '.html')    
+    request = requests.get(base_url + str(page) + '.html')
+    content = request.content
+    soup = BeautifulSoup(content,'html.parser')
+    print(soup)
+NB can find element holding final number of pages and use that to calculate value x of for page in range(0, x, 10)
+
+20-219 financial data web chart app cf also sections 10- & 17-
+20-220 pip3 install pandas_datareader   https://pandas-datareader.readthedocs.io/en/latest/remote_data.html
+API fixes (A) or (B) - 
+A) https://www.udemy.com/the-python-mega-course/learn/v4/questions/4201842  1. import pandas_datareader.data as web
+2. df = web.DataReader('AAPL', 'iex', '2018-01-01', '2018-03-31') You'll get an output like '2y' or '1y'. Print that dataframe in the next line to get the dataframe. 3. print(df)  - Limitation - Only previous 5 years' stock data of any company is available..
+
+B) https://www.udemy.com/the-python-mega-course/learn/v4/questions/5968370  1. pip install fix_yahoo_finance 2.  import fix_yahoo_finance as fyf 3. fyf.pdr_override()  4. Add override before DataReader.        https://pypi.org/project/fix-yahoo-finance/
+e.g. from pandas_datareader import data; import datetime;import fix_yahoo_finance as fyf;fyf.pdr_override();start = datetime.datetime(2016, 1, 1);end = datetime.datetime(2016, 3, 10);df = data.DataReader(name="GOOG", data_source="yahoo", start=start, end=end);df
+
+e.g. 
+A) dfIEX = data.DataReader(name='MSI', data_source='iex', start=start, end=finish)
+B) fyf.pdr_override(); dfYAH = data.DataReader(name='MSI', data_source='yahoo', start=start, end=finish)
+
+
+TODO: FRED, Fama/French, World Bank &c - look up https://pandas-datareader.readthedocs.io/en/latest/remote_data.html
+20-221 financial data columns explanation  *** blocks: open/close, lines:low/high (trading)  ***
+20-222 candlestick chart explanation - blocks: open/close, lines:low/high (trading)
+20-223  # exploratory test for 'closing higher than open' values
+dfYAH.index[dfYAH.Close > dfYAH.Open]
+# DataFrame.Index to get whichever is the index
+# DataFrame.SomeColumnName to get that column
+# necessary for building candelestick graph using quadrants/rectangles
+NB DateTimeIndex not datetime so graph at start of UNIX epoch - had to: import pandas; x = pandas.to_datetime(dfYAH.index[dfYAH.Close > dfYAH.Open])   # 7-224 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html
+
+x = pandas.to_datetime(dfYAH.index[dfYAH.Close > dfYAH.Open])   # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html
+y = (dfYAH.Open + dfYAH.Close)/2
+width = hours_12
+height = abs(dfYAH.Open - dfYAH.Close)
+# fill color GREEN if price went down through day    
+fig.rect(x=x, y=y, width=width, height=height, fill_color='green', line_color='black')    # x,y,width, height
+
+x = pandas.to_datetime(dfYAH.index[dfYAH.Close < dfYAH.Open])   # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html
+y = (dfYAH.Open + dfYAH.Close)/2
+width = hours_12
+height = abs(dfYAH.Open - dfYAH.Close)
+# fill color RED if price went down through day    
+fig.rect(x=x, y=y, width=width, height=height, fill_color='red', line_color='black')    # x,y,width, height
+
+
+
+BokehUserWarning: ColumnDataSource's columns must be of the same length. Current lengths: ('x', 6), ('y', 8)
+BokehUserWarning: ColumnDataSource's columns must be of the same length. Current lengths: ('height', 8), ('x', 6), ('y', 8)
+BokehUserWarning: ColumnDataSource's columns must be of the same length. Current lengths: ('x', 2), ('y', 8)
+BokehUserWarning: ColumnDataSource's columns must be of the same length. Current lengths: ('height', 8), ('x', 2), ('y', 8)
+
+def increase_decrease(close, open):
+    if close > open:
+        value = 'Increase'
+    elif close < open:
+        value = 'Decrease'
+    else:
+        value = 'Equal'
+    return value
+
+... but, instead, add column to dataframe showing increase/decrease in price status ...
+
+dfYAH['Status'] = [increase_decrease(close, open) for close, open, in zip(dfYAH.Close, dfYAH.Open)]
+# what pattern is this??
+dfYAHOO['BlockMiddle'] = (dfYAHOO.Open + dfYAHOO.Close)/2
+dfYAHOO['Height'] = abs(dfYAHOO.Close - dfYAHOO.Open)
+dfYAHOO
+
+x = pandas.to_datetime(dfYAHOO.index[dfYAHOO.Status == 'Increase'])   # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html
+y = dfYAHOO.BlockMiddle[dfYAHOO.Status == 'Increase']
+width = hours_12
+height = dfYAHOO.Height[dfYAHOO.Status == 'Increase']
+# fill color GREEN if price went down through day    
+fig.rect(x=x, y=y, width=width, height=height, fill_color='green', line_color='black')    # x,y,width, height
+
+x = pandas.to_datetime(dfYAHOO.index[dfYAHOO.Status == 'Decrease'])   # https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html
+y = dfYAHOO.BlockMiddle[dfYAHOO.Status == 'Decrease']
+width = hours_12
+height = dfYAHOO.Height[dfYAHOO.Status == 'Decrease']
+# fill color RED if price went down through day    
+fig.rect(x=x, y=y, width=width, height=height, fill_color='red', line_color='black')    # x,y,width, height
+
+
+70-225 fig.grid.grid_line_alpha = 0.3  - some transparency for grid lines (not so stark)
+fig.segment(pandas.to_datetime(dfYAHOO.index), dfYAHOO.High, pandas.to_datetime(dfYAHOO.index), dfYAHOO.Low, color='black') 
+# draw lines for daily price high and low (rectangle of width=0)
+# x,y (low), x,y (high), colour - NB index field is 'Date'
+# NB had to use pandas.to_datetime again
+
+NB features e.g. segments, rects layered in order of code so change order in code to affect order on drawing (e.g. segments i.e. lines behind solid blocks)
+
+20-226 styling, e.g. colour  -    sizing_mode="stretch_both"; # for responsive    cf 17-205
+20-227 Prep for embedding Bokeh into Flask web site 
+(1-4 necessary things to embed Bokeh into Flask site) 1) javascript 2) div code for bokeh chart class=bk-canvas-events 3) css links  4) js links
+(3) <link href="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.css" rel="stylesheet" type="text/css">
+(4) <script src="https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js" type="text/javascript"></script>
+(4) <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+
+output_file and show not needed to embed Bokeh into Flask - from bokeh.embed import components;  ....   my_script, my_div = components(my_figure)   - (returns tuple) 
+my_script d'contain (3 & 4) ; my_div d'contain (1 & 2)
+from bokeh.resources import CDN   # yes, that sort of CDN Content Delivery Network - cf url in <head> link tags   - cdn_javascript = CDN.js_files # (4) - a list of links to Bokeh js;  cdn_css = CDN.css_files (3) - a list of links to Bokeh css; 
+e.g. print(cdn_javascript)
+['https://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js', 'https://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.js', 'https://cdn.pydata.org/bokeh/release/bokeh-tables-1.0.4.min.js', 'https://cdn.pydata.org/bokeh/release/bokeh-gl-1.0.4.min.js']
+70-228 NB I didn't set up a virtual environment manually while using Jupyter Notebook as (1) Jupyter Notebook's Python interpreter used the global interpreter not any venv. (2) Pycharm is good for venv setup and I didn't use Pycharm for Jupyter Notebook. 
+pip3 install virtualenv # if necessary
+https://docs.python.org/3/library/venv.html  - on Win: c:\>python -m venv c:\path\to\myenv - for me: c:\>python -m venv C:\Users\peter.DESKTOP-3GCVT7E\source\repos\Python\python mega course\8WebFinancial  (took c 60 seconds) - in newly-venv-made ./mega directory were Include, Lib and Scripts beside existing code - cd'd into mega\Scripts   and ran activate.bat (no explicit response on command line) - from that path, did a pip3 install of all packages at top of script (e.g. pip3 install pandas & pandas_datareader & fix_yahoo_finance & datetime & bokeh)
+
+pip3 install ditto on Flask venv 
+in Flask web script e.g. script1. py, at top of routes, add e.g.
+# route for Bokeh embedded chart
+@app.route('/plot/')
+def plot():
+    print('Hello from plot')
+    # all Bokeh code from Jupyter Notebook will go here
+
+merge any Jupyter Notebook cells involved, check output and copy/paste to function def under route declaration
+
+and   add:
+
+e.g. return render_template('plot.html', script1=script1, div1=div1, cdn_css=cdn_css, cdn_javascript=cdn_javascript)
+ maybe     
+script1, div1 = components(fig)	# get not list, but first item of CDN resources list
+cdn_javascript = CDN.js_files[0]
+cdn_css = CDN.css_files[0]
+
+copy/paste/duplicate a Flask template .html file (e.g. about.html to plot.html)
+in new html file, e.g.
+{{my_script | safe}}
+{{my_div | safe}}
+
+and early on in template after {% extends .....   - (checking variable names to match those in script pasted into def)
+
+<link rel="stylesheet" href={{cdn_css |safe}} type="text/css" />
+<script type="text/javascript" src={{cdn_javascript |safe}}></script>
+
+see 4FlaskWebsite repo for 20-228 et seq
+
+
+
+-----------------------------------------------
+
 
 monotonous (little change in pitch, words run together)
 vowel sounds similar
 too quick in important bits, some repetition/time wasting in discussion though good explanation of need-to-know, few diagrams but good
 lots of sighing
+lots of talking without diagrams eg 20-224 - the grid sketch of the form in section 13 was good
 
 pandas (pannas)
 ahead (ahud)
@@ -464,3 +941,5 @@ mmmmm
 then (theh)
 so you get (syiget)
 column (com)
+csv (seesvee)
+web scraping (web scrapping)
